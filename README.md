@@ -1,16 +1,47 @@
-# trabalhoa1felipeferreira
+# Aplicativo Flutter - Gerenciador de Listas de Filmes
 
-A new Flutter project.
+Este é um aplicativo Flutter desenvolvido como trabalho da disciplina de Programação para Dispositivos Móveis 1.
+O app tem como objetivo permitir o cadastro e listagem de filmes.
 
-## Getting Started
+## 🚀 Funcionalidades
 
-This project is a starting point for a Flutter application.
+- ✅ Listagem de filmes da API (The Movies DataBase)
+- ✅ Interface responsiva com suporte a modo escuro
+- ✅ Acesso as listas via perfil do usuário
+- ✅ Navegação entre telas utilizando `BottomNavigationBar`
 
-A few resources to get you started if this is your first Flutter project:
+## 📱 Tecnologias utilizadas
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [Flutter](https://flutter.dev/) - SDK para desenvolvimento mobile multiplataforma
+- [Dart](https://dart.dev/) - Linguagem de programação
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🛠️ Como rodar o projeto
+
+1. Clone este repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/seu-repositorio.git
+   ```
+
+2. Navegue até o diretório do projeto:
+   ```bash
+   cd trabalhoa1felipeferreira
+   ```
+
+3. Instale as dependências:
+   ```bash
+   flutter pub get
+   ```
+
+4. Execute o projeto:
+   ```bash
+   flutter run
+   ```
+
+## 🧑 Autor
+
+- **Felipe Ferreira**  
+- Sistemas de Informação - Faculdade Unitins
+
+---
+
+> Este projeto foi desenvolvido como parte da avaliação da disciplina. Sinta-se livre para clonar, estudar e sugerir melhorias.
