@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'minhalista.dart';
 import 'vermaistarde.dart';
+import 'listas_personalizadas.dart'; // <- Novo import
 
 class PerfilScreen extends StatelessWidget {
   final List<Map<String, dynamic>> favoritos;
@@ -53,11 +54,16 @@ class PerfilScreen extends StatelessWidget {
               SizedBox(height: 20),
               _buildBotao(
                 context: context,
-                texto: "Outro Botão",
-                icone: Icons.more_horiz,
-                cor: Colors.blueGrey,
+                texto: "Listas Personalizadas",
+                icone: Icons.folder_special,
+                cor: Colors.deepPurple,
                 onPressed: () {
-                  // Ação futura
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ListasPersonalizadasScreen(),
+                    ),
+                  );
                 },
               ),
             ],
