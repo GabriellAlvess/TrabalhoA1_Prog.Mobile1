@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'minhalista.dart';
 import 'perfil.dart';
 import 'telafilmes.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'botao_salvar.dart';
 
 void main() {
   runApp(MyApp());
@@ -53,8 +51,6 @@ class _MainScreenState extends State<MainScreen> {
   List<Map<String, dynamic>> filmesMaisTarde = [];
   TextEditingController searchController = TextEditingController();
   bool isSearching = false;
-
-  List<String> listasPersonalizadas = [];
 
   @override
   void initState() {
@@ -155,61 +151,6 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  // Função atualizada com opção de adicionar nova lista
-  void showSalvarDialog(BuildContext context, dynamic movie) {
-    TextEditingController novaListaController = TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setStateDialog) {
-            return AlertDialog(
-              title: Text("Salvar em..."),
-              content: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ...listasPersonalizadas.map((lista) {
-                      return ListTile(
-                        title: Text(lista),
-                        onTap: () {
-                          print("Filme '${movie["title"]}' salvo em '$lista'");
-                          Navigator.pop(context);
-                        },
-                      );
-                    }).toList(),
-                    Divider(),
-                    TextField(
-                      controller: novaListaController,
-                      decoration: InputDecoration(
-                        hintText: "Criar nova lista",
-                        suffixIcon: IconButton(
-                          icon: Icon(Icons.add),
-                          onPressed: () {
-                            final novaLista = novaListaController.text.trim();
-                            if (novaLista.isNotEmpty &&
-                                !listasPersonalizadas.contains(novaLista)) {
-                              setState(() {
-                                listasPersonalizadas.add(novaLista);
-                              });
-                              setStateDialog(() {}); // Atualiza o dialog
-                              novaListaController.clear();
-                            }
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -217,6 +158,10 @@ class _MainScreenState extends State<MainScreen> {
         title: Text("CINEBUSCA 🍿", style: TextStyle(fontWeight: FontWeight.w900)),
         backgroundColor: Colors.red,
         actions: [
+          IconButton(
+            icon: Icon(Icons.dark_mode, color: Colors.white),
+            onPressed: widget.toggleTheme,
+          ),
           IconButton(
             icon: Icon(Icons.account_circle, color: Colors.white),
             onPressed: () {
@@ -230,10 +175,6 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               );
             },
-          ),
-          IconButton(
-            icon: Icon(Icons.dark_mode, color: Colors.white),
-            onPressed: widget.toggleTheme,
           ),
         ],
       ),
@@ -275,8 +216,7 @@ class _MainScreenState extends State<MainScreen> {
                       child: Stack(
                         children: [
                           ClipRRect(
-                            borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(12)),
+                            borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
                             child: movie["poster_path"] != null
                                 ? Image.network(
                               "https://image.tmdb.org/t/p/w200${movie["poster_path"]}",
@@ -297,26 +237,17 @@ class _MainScreenState extends State<MainScreen> {
                               children: [
                                 IconButton(
                                   icon: Icon(
-                                    isFavorito
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
+                                    isFavorito ? Icons.favorite : Icons.favorite_border,
                                     color: isFavorito ? Colors.red : Colors.white,
                                   ),
                                   onPressed: () => toggleFavorito(movie),
                                 ),
                                 IconButton(
                                   icon: Icon(
-                                    isMaisTarde
-                                        ? Icons.watch_later
-                                        : Icons.watch_later_outlined,
+                                    isMaisTarde ? Icons.watch_later : Icons.watch_later_outlined,
                                     color: isMaisTarde ? Colors.yellow : Colors.white,
                                   ),
                                   onPressed: () => toggleMaisTarde(movie),
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.folder_special_outlined,
-                                      color: Colors.white),
-                                  onPressed: () => showSalvarDialog(context, movie),
                                 ),
                               ],
                             ),
@@ -329,8 +260,7 @@ class _MainScreenState extends State<MainScreen> {
                       child: Text(
                         movie["title"] ?? "Sem título",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 14),
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
