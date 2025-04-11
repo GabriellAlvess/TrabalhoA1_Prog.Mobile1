@@ -15,42 +15,80 @@ class PerfilScreen extends StatelessWidget {
         title: Text("Perfil 👤"),
         backgroundColor: Colors.red,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MinhaListaScreen(favoritos: favoritos),
-                  ),
-                );
-              },
-              child: Text("Ver Filmes Favoritados ❤️"),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VerMaisTardeScreen(filmesMaisTarde: filmesMaisTarde),
-                  ),
-                );
-              },
-              child: Text("Ver Mais Tarde ⏳"),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Adicione a ação desejada para esse botão
-              },
-              child: Text("Outro Botão 🔘"),
-            ),
-          ],
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildBotao(
+                context: context,
+                texto: "Ver Filmes Favoritados",
+                icone: Icons.favorite,
+                cor: Colors.redAccent,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MinhaListaScreen(favoritos: favoritos),
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: 20),
+              _buildBotao(
+                context: context,
+                texto: "Assistir Mais Tarde",
+                icone: Icons.watch_later,
+                cor: Colors.amber,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VerMaisTardeScreen(filmesMaisTarde: filmesMaisTarde),
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: 20),
+              _buildBotao(
+                context: context,
+                texto: "Outro Botão",
+                icone: Icons.more_horiz,
+                cor: Colors.blueGrey,
+                onPressed: () {
+                  // Ação futura
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBotao({
+    required BuildContext context,
+    required String texto,
+    required IconData icone,
+    required Color cor,
+    required VoidCallback onPressed,
+  }) {
+    return SizedBox(
+      width: double.infinity,
+      height: 55,
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        icon: Icon(icone, color: Colors.white),
+        label: Text(
+          texto,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: cor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
       ),
     );
